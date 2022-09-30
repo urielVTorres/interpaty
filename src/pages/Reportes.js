@@ -5,12 +5,13 @@ const Reportes = () => {
     const [fecha, setFecha] = useState("hola");
     const [reportes, setReportes] = useState([]);
     const [dinero, setDinero] = useState(0);
+    const [detalle, setDetalle] = useState([]);
+    const [mostrar, setMostrar] = useState(false);
     useEffect(()=>{
         const buscarReportes = async () =>{
             try {
                 const {data} = await axios("http://192.168.100.95:4000/reporte");
                 setReportes(data);
-                console.log("reportado");
             } catch (error) {
                 console.log(error);
             }
@@ -18,7 +19,6 @@ const Reportes = () => {
         buscarReportes();
 
     }, []);
-    console.log(fecha);
     useEffect(()=>{
         let money = 0;
         setDinero(0);
@@ -31,6 +31,27 @@ const Reportes = () => {
         setDinero(money);
     }, [fecha, reportes])
 
+    useEffect(()=>{
+        if(detalle.length)
+            setMostrar(true);
+        else
+            setMostrar(false);
+    }, [detalle])
+
+    // const SeeMore = ({cliente}) => {
+    //     console.log(cliente);
+    //     console.log(mostrar);
+    //     return (
+    //         <div className='sticky bg-emerald-400 font-bold text-lg'>
+    //             <button onClick={setDetalle([])} >Cerrar</button>
+    //             {cliente.map( objeto => (
+    //                 <p key={objeto._id}>
+    //                     {`${objeto.concepto} ${objeto.precio} ${objeto.unidad}`}
+    //                 </p>            
+    //             ))}
+    //         </div>
+    //     )
+    // }
     return (
         <>
             <div className='text-lg m-10 text-gray-900 '>
@@ -45,6 +66,21 @@ const Reportes = () => {
                 </form>
             </div>
             <div className='text-2xl grid grid-cols-1 mx-auto text-center w-3/4 '>
+            {mostrar ? 
+                (
+                    <div className='container resize-y  bg-lime-200 text-green-900 font-bold w-full h-36 text-lg p-2 rounded-xl opacity-90 -inset-3/4 overflow-auto hover:shadow-xl'>
+                        <button 
+                        className='bg-green-700 text-white p-2 w-full rounded-md hover:bg-green-900'
+                        onClick={()=>{setDetalle([])}} >Cerrar</button>
+                        {detalle.map( objeto => (
+                            <p key={objeto._id}
+                            className='flex justify-between shadow-lg py-1 px-10  rounded '
+                            >
+                                <span>{objeto.concepto}</span> <span>{`${objeto.precio} ${objeto.unidad}`}</span> 
+                            </p>            
+                        ))}
+                </div>
+                ) : <></>}
                 {reportes.filter( reporte => {
                     if(fecha === "") return []
                     return reporte.fecha.toString().includes(fecha);
@@ -55,7 +91,10 @@ const Reportes = () => {
                             <span className='px-5 font-black'>{index+1}</span > 
                             <span className='px-5 font-bold text-emerald-800'>{venta.fecha.toLocaleString('es-MX')}</span >
                             <span className='px-5 font-black text-emerald-800'>${venta.total}</span >
-                            <button className='bg-emerald-600 p-2 mx-5 rounded-md text-white text-lg font-bold'>Ver detalles</button>
+                            <button 
+                                className='bg-emerald-600 p-2 mx-5 rounded-md text-white text-lg font-bold'
+                                onClick={()=>{setDetalle(venta.lista)}}    
+                            >Ver detalles</button>
                         </p>
                     </div>
                 )} )
