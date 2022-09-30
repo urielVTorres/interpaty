@@ -1,0 +1,37 @@
+{
+    "productos": [
+        {
+            "id": 0,
+            "concepto": "CURP",
+            "precio": 10,
+            "unidad": "c/u",
+            "imagen": "https://bolavip.com/__export/1634780510755/sites/bolavip/img/2021/10/20/xcoxmo_tramitar_curp_certificado_en_lixneax_crop1634779769703.png",
+            "linked": "https://www.gob.mx/curp/"
+        },
+        {
+            "id": 1,
+            "concepto": "Acta de Nacimiento",
+            "precio": 80,
+            "unidad": "c/u",
+            "imagen": "https://www.munal.com.mx/wp-content/uploads/2022/04/Acta-de-nacimiento.webp",
+            "linked": "https://www.gob.mx/ActaNacimiento/"
+            
+        },
+        {
+            "id": 2,
+            "concepto": "Paleta",
+            "precio": 3,
+            "unidad": "c/u",
+            "imagen": "https://i0.wp.com/mapasgourmet.com/wp-content/uploads/2015/09/captura-de-pantalla-2015-09-01-a-las-18-15-40-2.png",
+            "linked":"#"
+        },
+        {
+            "id":3,
+            "concepto": "Antecedentes",
+            "precio":45,
+            "unidad": "c/u",
+            "imagen": "https://elgrangestor.com/wp-content/uploads/2021/01/Requerimientos-para-obtener-en-M%C3%A9xico-la-carta-de-antecedentes-no-penales.png",
+            "linked": "http://sistemas2.edomex.gob.mx/ventanilla/ejecutarTramite.action?valorTramite=352&tipoTramite=2"
+        }
+    ]
+}
