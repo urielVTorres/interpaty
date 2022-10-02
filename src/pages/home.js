@@ -11,7 +11,8 @@ const Home = () => {
     const [productos, setProductos] = useState([]);
     const [busqueda, setBusqueda] = useState("");
     const [alerta, setAlerta] = useState({});
-    // const productos = catalogo.productos;
+    const [cantidad, setCantidad] = useState(1);
+
 
     useEffect(()=>{
         localStorage.setItem('ClienteActual', JSON.stringify(lista));
@@ -33,7 +34,7 @@ const Home = () => {
     }, [])
 
     const finalizarCompra = async () => {
-        
+        console.log(lista);
         //Envía las compras realizadas a la base de datos y se agregarán a la página de reporte;
         const {data} = await axios.post('http://192.168.100.95:4000/compra', {
             lista, total
@@ -83,21 +84,38 @@ const Home = () => {
                         imagen={objeto.imagen || ''}
                         linked={objeto.linked || '#'}
                     />
-                    <div className='flex justify-center mb-2'>
-                        <button 
+                    <form className='container grid grid-cols-2 mb-2'>
+                        <input 
+                            type="number"
+                            placeholder='Cantidad'
+                            className="font-semibold text-lg px-3 rounded-md bg-gray-100 w-auto mx-3 border-2"
+                            onChange={e => {
+                                setCantidad(e.target.value); 
+                            }}
+                            onBlurCapture={e=>
+                                e.target.value=null
+                            }
+                        />
+                        <input 
                             className=' m-auto bg-emerald-900 rounded-md py-2 px-10 font-bold text-white '
+                            type="submit"
                             onClick={e => {
                                 e.preventDefault();
-                                setTotal(total + objeto.precio);
+                                setTotal(total + objeto.precio*cantidad);
                                 const item = {
                                     id: Date.now(),
                                     concepto: objeto.concepto,
-                                    precio: objeto.precio
+                                    precio: objeto.precio,
+                                    cantidad
                                 }
+
                                 setLista([...lista, item]);
+                                setCantidad(1);
+
                             }}
-                        >Agregar</button>
-                    </div>
+                            value="Agregar"
+                        />
+                    </form>
                 </div>
                 )}
             </div>
@@ -111,7 +129,7 @@ const Home = () => {
                 />
                 <ul >
                     {lista.map( (elemento,index) => <li key={index} className='flex justify-between shadow-lg p-2 rounded '>
-                        <span className=' text-xl ' >{elemento.concepto}</span>
+                        <span className=' text-xl ' >{elemento.cantidad} - {elemento.concepto}</span>
                         <button 
                             className='text-white font-black text-xs bg-red-600 px-2 rounded-full'
                             onClick={() => {

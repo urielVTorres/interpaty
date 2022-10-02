@@ -1,6 +1,7 @@
 import {useState, useEffect} from 'react';
 import axios from 'axios';
 
+
 const Reportes = () => {
     const [fecha, setFecha] = useState("hola");
     const [reportes, setReportes] = useState([]);
@@ -38,20 +39,7 @@ const Reportes = () => {
             setMostrar(false);
     }, [detalle])
 
-    // const SeeMore = ({cliente}) => {
-    //     console.log(cliente);
-    //     console.log(mostrar);
-    //     return (
-    //         <div className='sticky bg-emerald-400 font-bold text-lg'>
-    //             <button onClick={setDetalle([])} >Cerrar</button>
-    //             {cliente.map( objeto => (
-    //                 <p key={objeto._id}>
-    //                     {`${objeto.concepto} ${objeto.precio} ${objeto.unidad}`}
-    //                 </p>            
-    //             ))}
-    //         </div>
-    //     )
-    // }
+
     return (
         <>
             <div className='text-lg m-10 text-gray-900 '>
@@ -74,12 +62,12 @@ const Reportes = () => {
                         onClick={()=>{setDetalle([])}} >Cerrar</button>
                         {detalle.map( objeto => (
                             <p key={objeto._id}
-                            className='flex justify-between shadow-lg py-1 px-10  rounded '
+                            className='grid grid-cols-3 shadow-lg py-1 px-10  rounded '
                             >
-                                <span>{objeto.concepto}</span> <span>{`${objeto.precio} ${objeto.unidad}`}</span> 
+                                <span>{objeto.cantidad} - {objeto.concepto}</span> <span>{`${objeto.precio} ${objeto.unidad}`}</span> <span> Total: ${objeto.cantidad*objeto.precio} </span> 
                             </p>            
                         ))}
-                </div>
+                    </div>
                 ) : <></>}
                 {reportes.filter( reporte => {
                     if(fecha === "") return []
@@ -89,11 +77,12 @@ const Reportes = () => {
                     <div key={venta._id} className="m-3 bg-white p-2 font-arial text-2xl shadow-md ">
                         <p className="flex justify-between items-center">
                             <span className='px-5 font-black'>{index+1}</span > 
-                            <span className='px-5 font-bold text-emerald-800'>{venta.fecha.toLocaleString('es-MX')}</span >
+                            <span className='px-5 font-bold text-emerald-800'>{venta.fecha.toLocaleString('es-MX').slice(11,-5)}, {venta.fecha.toLocaleString('es-MX').slice(0,10)}</span >
                             <span className='px-5 font-black text-emerald-800'>${venta.total}</span >
                             <button 
                                 className='bg-emerald-600 p-2 mx-5 rounded-md text-white text-lg font-bold'
-                                onClick={()=>{setDetalle(venta.lista)}}    
+                                onClick={()=>{setDetalle(venta.lista)
+                                console.log(detalle)}}    
                             >Ver detalles</button>
                         </p>
                     </div>
