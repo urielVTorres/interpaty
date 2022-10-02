@@ -22,7 +22,7 @@ const Home = () => {
     useEffect(()=>{
         const losProductos = async ()=>{
             try {
-                const {data} = await axios('http://192.168.100.95:4000/productos');
+                const {data} = await axios(`${process.env.REACT_APP_URL_BACKEND}/productos`);
                 setProductos(data);
                 
             } catch (error) {
@@ -36,7 +36,7 @@ const Home = () => {
     const finalizarCompra = async () => {
         console.log(lista);
         //Envía las compras realizadas a la base de datos y se agregarán a la página de reporte;
-        const {data} = await axios.post('http://192.168.100.95:4000/compra', {
+        const {data} = await axios.post(`${process.env.REACT_APP_URL_BACKEND}/compra`, {
             lista, total
         });
         //Resetea el contenido de la página "Nuevo Cliente";
@@ -135,7 +135,7 @@ const Home = () => {
                             onClick={() => {
                                 const newLista = lista.filter( ele => ele.id !== elemento.id);
                                 setLista(newLista);
-                                setTotal(total - elemento.precio);
+                                setTotal(total - elemento.precio*elemento.cantidad);
                             }}
                         >╳</button>
                     </li>)}

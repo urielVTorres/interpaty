@@ -11,7 +11,7 @@ const Reportes = () => {
     useEffect(()=>{
         const buscarReportes = async () =>{
             try {
-                const {data} = await axios("http://192.168.100.95:4000/reporte");
+                const {data} = await axios(`${process.env.REACT_APP_URL_BACKEND}/reporte`);
                 setReportes(data);
             } catch (error) {
                 console.log(error);
