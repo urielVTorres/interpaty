@@ -12,6 +12,26 @@ const Home = () => {
     const [busqueda, setBusqueda] = useState("");
     const [alerta, setAlerta] = useState({});
     const [cantidad, setCantidad] = useState(1);
+    const [categ, setCateg] = useState('');
+    // const [ID, setId] = useState('');
+    
+    // useEffect(()=>{
+
+    //     const eliminarProducto = async (ID)=>{
+    //         console.log(ID);
+    //         if(ID==='') return;
+    //         try {
+    //             const {data} = await axios.delete(`${process.env.REACT_APP_URL_BACKEND}/productos`, {id:ID});
+    //             console.log(data);
+                
+    //         } catch (error) {
+    //             console.log(error);
+    //         }
+    //         setId('');
+    
+    //     }
+    //     eliminarProducto();
+    // },[ID])
 
 
     useEffect(()=>{
@@ -64,6 +84,43 @@ const Home = () => {
                 onChange={e => setBusqueda(e.target.value)}
             />
         </div>
+        <div
+            className="px-3 mb-2"
+            onClick={e=>{setCateg(e.target.value)}}
+        >
+            <button
+                type='button'
+                value=''
+                children='Todo'
+                className="px-2 py-1 mr-2 hover:bg-emerald-800 hover:text-white font-bold text-md text-gray-800 rounded-xl"
+                
+            />
+            <button
+                type='button'
+                value='tramites'
+                children='Tramites'
+                className="px-2 py-1 mr-2 hover:bg-emerald-800 hover:text-white font-bold text-md text-gray-800 rounded-xl"
+            />
+            <button
+                type='button'
+                value='dulces'
+                children='Dulces'
+                className="px-2 py-1 mr-2 hover:bg-emerald-800 hover:text-white font-bold text-md text-gray-800 rounded-xl"
+            />
+            <button
+                type='button'
+                value='papeleria'
+                children='Papelería'
+                className="px-2 py-1 mr-2 hover:bg-emerald-800 hover:text-white font-bold text-md text-gray-800 rounded-xl"
+            />
+            <button
+                type='button'
+                value='otros'
+                children='Otros'
+                className="px-2 py-1 mr-2 hover:bg-emerald-800 hover:text-white font-bold text-md text-gray-800 rounded-xl"
+            />
+
+        </div>
         <div className='absolute'>
 
             {msg && <Alerta alerta={alerta}/>}
@@ -71,18 +128,27 @@ const Home = () => {
             <div className="grid md:grid-cols-2 lg:grid-cols-4 grid-cols-1 gap-4 ">
                 {/* crea un objeto por cada procuto en el archivo "productos.json" */}
                 {productos.filter(prod =>{
-                    if(busqueda === ""){
+                    if(busqueda === "" && categ ===""){
                         return prod
+                    } else if(busqueda === "" && categ !== ""){
+                        return prod.categoria?.toLowerCase().includes(categ.toLowerCase());
                     }
-                    return prod.concepto.toLowerCase().includes(busqueda.toLowerCase());
+                    return (prod.concepto.toLowerCase().includes(busqueda.toLowerCase()) && prod.categoria?.toLowerCase().includes(categ.toLowerCase()));
                 }).map( objeto =>  
                 <div key={objeto._id} className='container mx-auto hover:bg-white bg-stone-50 rounded-xl p-2 w-full hover:shadow-lg'>
+                    {/* <input
+                    type="submit"
+                    value="✕"
+                    className='font-bold text-gray-600 text-lg hover:cursor-pointer'
+                    onClick={()=>{setId(objeto._id)}}
+                    /> */}
                     <NuevoProducto 
                         concepto={objeto.concepto}
                         precio={objeto.precio}
                         unidad={objeto.unidad}
-                        imagen={objeto.imagen || ''}
-                        linked={objeto.linked || '#'}
+                        // imagen={objeto.imagen || ''}
+                        // linked={objeto.linked || '#'}
+                        // id={objeto._id}
                     />
                     <form className='container grid grid-cols-2 mb-2'>
                         <input 

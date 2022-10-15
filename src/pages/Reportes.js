@@ -42,7 +42,7 @@ const Reportes = () => {
 
     return (
         <>
-            <div className='text-lg m-10 text-gray-900 '>
+            <div className='text-lg mb-3 md:mx-10 text-gray-900 '>
                 <form className='grid grid-cols-1 md:grid-cols-4 text-center items-center'>
                     <h1 className='font-bold text-4xl md:col-span-2'>Reportes</h1>
                     <input className='mx-auto my-3 p-3 bg-white border-2 border-lime-400 rounded-md w-full' 
@@ -50,10 +50,10 @@ const Reportes = () => {
                     onChange={e => {
                         setFecha(e.target.value.toString());
                         }}/>
-                    <span  className='bg-emerald-600 text-white font-bold p-3 mx-2 w-full rounded-md'>Total: ${dinero}</span>
+                    <span  className='bg-emerald-600 text-white font-bold p-3 md:mx-5 w-full rounded-md'>Total: ${dinero}</span>
                 </form>
             </div>
-            <div className='text-2xl grid grid-cols-1 mx-auto text-center w-3/4 '>
+            <div className='grid grid-cols-1 mx-auto text-center w-auto md:w-3/4'>
             {mostrar ? 
                 (
                     <div className='container resize-y  bg-lime-200 text-green-900 font-bold w-full h-36 text-lg p-2 rounded-xl opacity-90 -inset-3/4 overflow-auto hover:shadow-xl'>
@@ -74,13 +74,13 @@ const Reportes = () => {
                     return reporte.fecha.toString().includes(fecha);
                 }).map( (venta, index) => {
                 return(
-                    <div key={venta._id} className="m-3 bg-white p-2 font-arial text-2xl shadow-md ">
+                    <div key={venta._id} className="m-1 md:m-3 bg-white p-1 md:p-2 font-arial md:text-2xl shadow-md text-base ">
                         <p className="flex justify-between items-center">
                             <span className='px-5 font-black'>{index+1}</span > 
                             <span className='px-5 font-bold text-emerald-800'>{venta.fecha.toLocaleString('es-MX').slice(11,-5)}, {venta.fecha.toLocaleString('es-MX').slice(0,10)}</span >
                             <span className='px-5 font-black text-emerald-800'>${venta.total}</span >
                             <button 
-                                className='bg-emerald-600 p-2 mx-5 rounded-md text-white text-lg font-bold'
+                                className='bg-emerald-600 p-2 mx-5 rounded-md text-white text-base md:text-lg font-bold'
                                 onClick={()=>{setDetalle(venta.lista)
                                 console.log(detalle)}}    
                             >Ver detalles</button>

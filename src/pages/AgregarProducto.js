@@ -7,7 +7,8 @@ const AgregarProducto =  () => {
         concepto:'',
         precio:'',
         imagen:'',
-        linked:''
+        linked:'',
+        categoria:''
   });
   const [alerta, setAlerta] = useState({});
   const handleSubmit = async e => {
@@ -23,7 +24,8 @@ const AgregarProducto =  () => {
         concepto:'',
         precio:'',
         imagen:'',
-        linked:''
+        linked:'',
+        categoria:''
       });
     } catch (error) {
       console.log(error);
@@ -65,8 +67,26 @@ const AgregarProducto =  () => {
                     })
                   }}
                 />
+                <label className='font-black text-2xl ' children="Categoría:*"/>
+                <select  
+                  name="categoria"
+                  className='bg-stone-200 rounded-md border-green-300 block border-2 my-2 text-xl p-2 md:w-3/4 w-full focus:bg-white'
+                  value={producto.categoria || ''}
+                  onChange={e =>{
+                    setProducto({
+                      ...producto,
+                      [e.target.name]: e.target.value
+                    })
+                  }}
+                >
+                  <option value="">Seleccione una categoría</option>
+                  <option value="tramites">Tramites</option>
+                  <option value="dulces">Dulces</option>
+                  <option value="papeleria">Papelería</option>
+                  <option value="otros">Otros</option>
+                </select>
 
-                <label className='font-black text-2xl ' children="Imagen:"/>
+                {/* <label className='font-black text-2xl ' children="Imagen:"/>
                 <input 
                   type="text" 
                   name="imagen"
@@ -79,7 +99,7 @@ const AgregarProducto =  () => {
                       [e.target.name]: e.target.value
                     })
                   }}
-                />
+                /> */}
                 
                 <label className='font-black text-2xl ' children="Link de la página:"/>
                 <input 
