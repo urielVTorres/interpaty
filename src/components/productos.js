@@ -1,6 +1,3 @@
-import React, {useState, useEffect} from 'react';
-import axios from 'axios';
-
 const NuevoProducto = ({concepto, precio, unidad, imagen, linked}) => {
 
     
