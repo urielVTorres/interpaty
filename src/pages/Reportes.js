@@ -11,7 +11,12 @@ const Reportes = () => {
     useEffect(()=>{
         const buscarReportes = async () =>{
             try {
-                const {data} = await axios(`${process.env.REACT_APP_URL_BACKEND}/reporte`);
+                const {data} = await axios(`${process.env.REACT_APP_URL_BACKEND}/reporte`, {
+                    headers: {
+                      'Content-Type': 'application/json;charset=UTF-8',
+                      'Access-Control-Allow-Origin': '*'
+                    },
+                });
                 setReportes(data);
             } catch (error) {
                 console.log(error);

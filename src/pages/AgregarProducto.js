@@ -15,7 +15,13 @@ const AgregarProducto =  () => {
     e.preventDefault();
     //Modificar el acceso de las políticas de CORS
     try {
-      const {data} = await axios.post(`${process.env.REACT_APP_URL_BACKEND}/agregar`, producto);
+      const {data} = await axios.post(`${process.env.REACT_APP_URL_BACKEND}/agregar`, {
+        headers: {
+          'Content-Type': 'application/json;charset=UTF-8',
+          'Access-Control-Allow-Origin': '*'
+        },
+        data: producto
+      });
       setAlerta(data);
       if(data.error){
         return;
