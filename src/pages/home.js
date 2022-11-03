@@ -48,6 +48,8 @@ const Home = () => {
                       'Access-Control-Allow-Origin': '*'
                     }
                 });
+                
+                data.sort((a,b) => (a.concepto > b.concepto) ? 1 : ((b.concepto > a.concepto) ? -1 : 0));
                 setProductos(data);
                 
             } catch (error) {

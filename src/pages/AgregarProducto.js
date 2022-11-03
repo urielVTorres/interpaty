@@ -61,7 +61,7 @@ const AgregarProducto =  () => {
 
                 <label className='font-black text-2xl ' children="Precio:*"/>
                 <input 
-                  type="text" 
+                  type="number" 
                   name="precio"
                   placeholder='Precio del Producto'
                   className='bg-stone-200 rounded-md border-green-300 block border-2 my-2 text-xl p-2 md:w-3/4 w-full focus:bg-white'
@@ -69,7 +69,7 @@ const AgregarProducto =  () => {
                   onChange={e =>{
                     setProducto({
                       ...producto,
-                      [e.target.name]: Number(e.target.value)
+                      [e.target.name]: e.target.value
                     })
                   }}
                 />
