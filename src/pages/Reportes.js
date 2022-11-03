@@ -3,11 +3,14 @@ import axios from 'axios';
 
 
 const Reportes = () => {
-    const [fecha, setFecha] = useState("hola");
+    const date = new Date();
+    const day = date.getDate() < 10 ? `0${date.getDate()}` : date.getDate();
+    const hoy = `${date.getFullYear()}-${date.getMonth()+1}-${day}`;
+    const [fecha, setFecha] = useState(hoy);
     const [reportes, setReportes] = useState([]);
     const [dinero, setDinero] = useState(0);
     const [detalle, setDetalle] = useState([]);
-    const [mostrar, setMostrar] = useState(false);
+
     useEffect(()=>{
         const buscarReportes = async () =>{
             try {
@@ -23,6 +26,7 @@ const Reportes = () => {
             }
         }
         buscarReportes();
+        
 
     }, []);
     useEffect(()=>{
@@ -36,14 +40,7 @@ const Reportes = () => {
         });
         setDinero(money);
     }, [fecha, reportes])
-
-    useEffect(()=>{
-        if(detalle.length)
-            setMostrar(true);
-        else
-            setMostrar(false);
-    }, [detalle])
-
+    
 
     return (
         <>
@@ -52,6 +49,7 @@ const Reportes = () => {
                     <h1 className='font-bold text-4xl md:col-span-2'>Reportes</h1>
                     <input className='mx-auto my-3 p-3 bg-white border-2 border-lime-400 rounded-md w-full' 
                     type="date" 
+                    value={fecha}
                     onChange={e => {
                         setFecha(e.target.value.toString());
                         }}/>
@@ -59,21 +57,6 @@ const Reportes = () => {
                 </form>
             </div>
             <div className='grid grid-cols-1 mx-auto text-center w-auto md:w-3/4'>
-            {mostrar ? 
-                (
-                    <div className='container resize-y  bg-lime-200 text-green-900 font-bold w-full h-36 text-lg p-2 rounded-xl opacity-90 -inset-3/4 overflow-auto hover:shadow-xl'>
-                        <button 
-                        className='bg-green-700 text-white p-2 w-full rounded-md hover:bg-green-900'
-                        onClick={()=>{setDetalle([])}} >Cerrar</button>
-                        {detalle.map( objeto => (
-                            <p key={objeto._id}
-                            className='grid grid-cols-3 shadow-lg py-1 px-10  rounded '
-                            >
-                                <span>{objeto.cantidad} - {objeto.concepto}</span> <span>{`${objeto.precio} ${objeto.unidad}`}</span> <span> Total: ${objeto.cantidad*objeto.precio} </span> 
-                            </p>            
-                        ))}
-                    </div>
-                ) : <></>}
                 {reportes.filter( reporte => {
                     if(fecha === "") return []
                     return reporte.fecha.toString().includes(fecha);
@@ -86,10 +69,21 @@ const Reportes = () => {
                             <span className='px-5 font-black text-emerald-800'>${venta.total}</span >
                             <button 
                                 className='bg-emerald-600 p-2 mx-5 rounded-md text-white text-base md:text-lg font-bold'
-                                onClick={()=>{setDetalle(venta.lista)
-                                console.log(detalle)}}    
+                                onClick={()=>{setDetalle(venta._id)}}    
                             >Ver detalles</button>
                         </p>
+                        <div className={`container resize-y ${detalle === venta._id? '' : 'hidden'}  bg-lime-200 text-green-900 font-bold w-full h-36 text-lg p-2 rounded-xl opacity-90 -inset-3/4 overflow-auto hover:shadow-xl`}>
+                            <button 
+                                className='bg-green-700 text-white p-2 w-full rounded-md hover:bg-green-900 '
+                                onClick={()=>{setDetalle("")}} >Cerrar</button>
+                                {venta.lista.map( objeto => (
+                                    <p key={objeto._id}
+                                    className='grid grid-cols-3 shadow-lg py-1 px-10  rounded'
+                                    >
+                                        <span>{objeto.cantidad} - {objeto.concepto}</span> <span>{`${objeto.precio} ${objeto.unidad}`}</span> <span> Total: ${objeto.cantidad*objeto.precio} </span> 
+                                    </p>            
+                                ))}
+                        </div>
                     </div>
                 )} )
                 

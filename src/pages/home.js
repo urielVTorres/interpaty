@@ -59,7 +59,7 @@ const Home = () => {
     }, [])
 
     const finalizarCompra = async () => {
-        console.log(lista);
+       
         //Envía las compras realizadas a la base de datos y se agregarán a la página de reporte;
         const {data} = await axios.post(`${process.env.REACT_APP_URL_BACKEND}/compra`, {
             lista, total
@@ -91,7 +91,7 @@ const Home = () => {
         </div>
         <div
             className="px-3 mb-2"
-            onClick={e=>{setCateg(e.target.value)}}
+            onClick={e=>{setCateg(e.target.value || "")}}
         >
             <button
                 type='button'
@@ -152,7 +152,7 @@ const Home = () => {
                         precio={objeto.precio}
                         unidad={objeto.unidad}
                         // imagen={objeto.imagen || ''}
-                        // linked={objeto.linked || '#'}
+                        linked={objeto.linked || '#'}
                         // id={objeto._id}
                     />
                     <form className='container grid grid-cols-2 mb-2'>
@@ -172,12 +172,12 @@ const Home = () => {
                             type="submit"
                             onClick={e => {
                                 e.preventDefault();
-                                setTotal(total + objeto.precio*cantidad);
+                                setTotal(total + objeto.precio*Math.abs(cantidad));
                                 const item = {
                                     id: Date.now(),
                                     concepto: objeto.concepto,
                                     precio: objeto.precio,
-                                    cantidad
+                                    cantidad: Math.abs(cantidad)
                                 }
 
                                 setLista([...lista, item]);
