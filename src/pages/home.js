@@ -1,6 +1,7 @@
 import {useState, useEffect} from 'react';
 // import catalogo from "../productos.json";
 import NuevoProducto from '../components/productos';
+import CategoriaBar from '../components/CategoriaBar.js';
 import axios from 'axios';
 import Alerta from '../components/Alerta.js';
 
@@ -13,32 +14,14 @@ const Home = () => {
     const [alerta, setAlerta] = useState({});
     const [cantidad, setCantidad] = useState(1);
     const [categ, setCateg] = useState('');
-    // const [ID, setId] = useState('');
-    
-    // useEffect(()=>{
 
-    //     const eliminarProducto = async (ID)=>{
-    //         console.log(ID);
-    //         if(ID==='') return;
-    //         try {
-    //             const {data} = await axios.delete(`${process.env.REACT_APP_URL_BACKEND}/productos`, {id:ID});
-    //             console.log(data);
-                
-    //         } catch (error) {
-    //             console.log(error);
-    //         }
-    //         setId('');
-    
-    //     }
-    //     eliminarProducto();
-    // },[ID])
-
-
+    //Guardar la lista de compra del cliente en localStorage, para evitar que se pierda al recargar la página.
     useEffect(()=>{
         localStorage.setItem('ClienteActual', JSON.stringify(lista));
         localStorage.setItem('TotalCliente', JSON.stringify(total));
     },[lista, total]);
 
+    //Obtener los productos desde el backend
     useEffect(()=>{
         const losProductos = async ()=>{
             try {
@@ -48,7 +31,7 @@ const Home = () => {
                       'Access-Control-Allow-Origin': '*'
                     }
                 });
-                
+                // Organizar los datos en orden alfabetico
                 data.sort((a,b) => (a.concepto > b.concepto) ? 1 : ((b.concepto > a.concepto) ? -1 : 0));
                 setProductos(data);
                 
@@ -60,80 +43,54 @@ const Home = () => {
         losProductos();
     }, [])
 
+    //Envía las compras realizadas a la base de datos y se agregarán a la página de reporte
     const finalizarCompra = async () => {
        
-        //Envía las compras realizadas a la base de datos y se agregarán a la página de reporte;
         const {data} = await axios.post(`${process.env.REACT_APP_URL_BACKEND}/compra`, {
             lista, total
         });
-        //Resetea el contenido de la página "Nuevo Cliente";
+        //Resetea el contenido de la página y muestra un mensaje con el status de la compra que desaparece después de 5 segundos
         setAlerta(data);
         if(data.error) return;
         localStorage.clear();
         setTotal(0);
         setLista([]);
+
         setTimeout(()=>{
             setAlerta({});
         },5000);
     }
+    
     const {msg} = alerta;
 
     return (
         <>
-        <div className=' grid md:grid-cols-3 gap-5  bg-emerald-800 p-5 rounded-2xl my-5 items-center hover:shadow-xl '>
-            <h1 className=' md:col-span-2  font-black text-white text-3xl text-center '>
-                Total: ${total}
-            </h1>
-            <input 
-                type="text"
-                className='rounded-lg mx-3 p-3 font-medium bg-gray-100'
-                placeholder='Buscar producto'
-                onChange={e => setBusqueda(e.target.value)}
-            />
-        </div>
-        <div
-            className="px-3 mb-2"
-            onClick={e=>{setCateg(e.target.value || "")}}
-        >
-            <button
-                type='button'
-                value=''
-                children='Todo'
-                className="px-2 py-1 mr-2 hover:bg-emerald-800 hover:text-white font-bold text-md text-gray-800 rounded-xl"
-                
-            />
-            <button
-                type='button'
-                value='tramites'
-                children='Tramites'
-                className="px-2 py-1 mr-2 hover:bg-emerald-800 hover:text-white font-bold text-md text-gray-800 rounded-xl"
-            />
-            <button
-                type='button'
-                value='dulces'
-                children='Dulces'
-                className="px-2 py-1 mr-2 hover:bg-emerald-800 hover:text-white font-bold text-md text-gray-800 rounded-xl"
-            />
-            <button
-                type='button'
-                value='papeleria'
-                children='Papelería'
-                className="px-2 py-1 mr-2 hover:bg-emerald-800 hover:text-white font-bold text-md text-gray-800 rounded-xl"
-            />
-            <button
-                type='button'
-                value='otros'
-                children='Otros'
-                className="px-2 py-1 mr-2 hover:bg-emerald-800 hover:text-white font-bold text-md text-gray-800 rounded-xl"
-            />
+            <div className=' grid md:grid-cols-3 gap-5  bg-emerald-800 p-5 rounded-2xl my-5 items-center hover:shadow-xl '>
+                <h1 className=' md:col-span-2  font-black text-white text-3xl text-center '>
+                    Total: ${total}
+                </h1>
+                <input 
+                    type="text"
+                    className='rounded-lg mx-3 p-3 font-medium bg-gray-100'
+                    placeholder='Buscar producto'
+                    onChange={e => setBusqueda(e.target.value)}
+                />
+            </div>
 
-        </div>
-        <div className='absolute'>
+            {/* Barra de filtrado por categoría */}
+            <div
+                className="px-3 mb-2"
+                onClick={e=>{setCateg(e.target.value || "")}}
+            >
+                <CategoriaBar />
+            </div>
 
-            {msg && <Alerta alerta={alerta}/>}
-        </div>
+            <div className='absolute'>
+                {msg && <Alerta alerta={alerta}/>}
+            </div>
+
+            {/* crea un objeto por cada procuto en el archivo "productos.json" */}
             <div className="grid md:grid-cols-2 lg:grid-cols-4 grid-cols-1 gap-4 ">
-                {/* crea un objeto por cada procuto en el archivo "productos.json" */}
                 {productos.filter(prod =>{
                     if(busqueda === "" && categ ===""){
                         return prod
@@ -143,12 +100,6 @@ const Home = () => {
                     return (prod.concepto.toLowerCase().includes(busqueda.toLowerCase()) && prod.categoria?.toLowerCase().includes(categ.toLowerCase()));
                 }).map( objeto =>  
                 <div key={objeto._id} className='container mx-auto hover:bg-white bg-stone-50 rounded-xl p-2 w-full hover:shadow-lg'>
-                    {/* <input
-                    type="submit"
-                    value="✕"
-                    className='font-bold text-gray-600 text-lg hover:cursor-pointer'
-                    onClick={()=>{setId(objeto._id)}}
-                    /> */}
                     <NuevoProducto 
                         concepto={objeto.concepto}
                         precio={objeto.precio}

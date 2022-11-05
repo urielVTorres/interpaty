@@ -12,9 +12,9 @@ function App() {
             <div>
                 <Header />
                 <Routes>
-                    <Route index="/" element={<AgregarProducto />} />
+                    <Route index="/" element={<Home />} />
                     <Route path="reporte" element={<Reportes />}/>
-                    <Route path="nuevo-cliente" element={<Home />} />
+                    <Route path="nuevo-producto" element={<AgregarProducto />} />
                 </Routes>
             </div> 
         </Router>
