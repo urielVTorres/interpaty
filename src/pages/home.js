@@ -1,6 +1,6 @@
 import {useState, useEffect} from 'react';
 // import catalogo from "../productos.json";
-import NuevoProducto from '../components/productos';
+import NuevoProducto from '../components/NuevoProducto.js';
 import CategoriaBar from '../components/CategoriaBar.js';
 import axios from 'axios';
 import Alerta from '../components/Alerta.js';
@@ -60,7 +60,7 @@ const Home = () => {
             setAlerta({});
         },5000);
     }
-    
+
     const {msg} = alerta;
 
     return (
@@ -107,39 +107,14 @@ const Home = () => {
                         // imagen={objeto.imagen || ''}
                         linked={objeto.linked || '#'}
                         // id={objeto._id}
+                        cantidad={cantidad}
+                        setCantidad={setCantidad}
+                        total={total}
+                        setTotal={setTotal}
+                        lista={lista}
+                        setLista={setLista}
+                        objeto={objeto}
                     />
-                    <form className='container grid grid-cols-2 mb-2'>
-                        <input 
-                            type="number"
-                            placeholder='Cantidad'
-                            className="font-semibold text-lg px-3 rounded-md bg-gray-100 w-auto mx-3 border-2"
-                            onChange={e => {
-                                setCantidad(e.target.value); 
-                            }}
-                            onBlurCapture={e=>
-                                e.target.value=null
-                            }
-                        />
-                        <input 
-                            className=' m-auto bg-emerald-900 rounded-md py-2 px-10 font-bold text-white '
-                            type="submit"
-                            onClick={e => {
-                                e.preventDefault();
-                                setTotal(total + objeto.precio*Math.abs(cantidad));
-                                const item = {
-                                    id: Date.now(),
-                                    concepto: objeto.concepto,
-                                    precio: objeto.precio,
-                                    cantidad: Math.abs(cantidad)
-                                }
-
-                                setLista([...lista, item]);
-                                setCantidad(1);
-
-                            }}
-                            value="Agregar"
-                        />
-                    </form>
                 </div>
                 )}
             </div>
