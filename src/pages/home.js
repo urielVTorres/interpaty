@@ -1,10 +1,10 @@
+import axios from 'axios';
 import {useState, useEffect} from 'react';
 // import catalogo from "../productos.json";
 import NuevoProducto from '../components/NuevoProducto.js';
 import CategoriaBar from '../components/CategoriaBar.js';
-import axios from 'axios';
 import Alerta from '../components/Alerta.js';
-
+import CarritoCompra from '../components/CarritoCompra.js';
 
 const Home = () => {
     const [total, setTotal] = useState(JSON.parse(localStorage.getItem('TotalCliente')) || 0);
@@ -78,10 +78,7 @@ const Home = () => {
             </div>
 
             {/* Barra de filtrado por categoría */}
-            <div
-                className="px-3 mb-2"
-                onClick={e=>{setCateg(e.target.value || "")}}
-            >
+            <div className="px-3 mb-2" onClick={e=>{setCateg(e.target.value || "")}}>
                 <CategoriaBar />
             </div>
 
@@ -101,45 +98,31 @@ const Home = () => {
                 }).map( objeto =>  
                 <div key={objeto._id} className='container mx-auto hover:bg-white bg-stone-50 rounded-xl p-2 w-full hover:shadow-lg'>
                     <NuevoProducto 
-                        concepto={objeto.concepto}
+                        concepto={objeto.concepto} 
                         precio={objeto.precio}
                         unidad={objeto.unidad}
-                        // imagen={objeto.imagen || ''}
                         linked={objeto.linked || '#'}
-                        // id={objeto._id}
                         cantidad={cantidad}
                         setCantidad={setCantidad}
                         total={total}
                         setTotal={setTotal}
                         lista={lista}
                         setLista={setLista}
-                        objeto={objeto}
+                        // imagen={objeto.imagen || ''}
+                        // id={objeto._id}
                     />
                 </div>
                 )}
             </div>
             {/* Crea una lista con los productos agregados. */}
             {!lista.length? <> </> : 
-            <div className='container resize-y  bg-lime-200 text-green-900 font-bold w-80 h-36 p-2 rounded-xl sticky bottom-8 opacity-90 -inset-3/4 overflow-auto hover:shadow-xl'>
-                <button
-                    className=" bg-green-700 text-white p-2 w-full rounded-md hover:bg-green-900"
-                    children="Finalizar Compra"
-                    onClick={finalizarCompra}
+                <CarritoCompra
+                    finalizarCompra={finalizarCompra}
+                    total={total}
+                    setTotal={setTotal} 
+                    lista={lista}
+                    setLista={setLista}
                 />
-                <ul >
-                    {lista.map( (elemento,index) => <li key={index} className='flex justify-between shadow-lg p-2 rounded '>
-                        <span className=' text-xl ' >{elemento.cantidad} - {elemento.concepto}</span>
-                        <button 
-                            className='text-white font-black text-xs bg-red-600 px-2 rounded-full'
-                            onClick={() => {
-                                const newLista = lista.filter( ele => ele.id !== elemento.id);
-                                setLista(newLista);
-                                setTotal(total - elemento.precio*elemento.cantidad);
-                            }}
-                        >╳</button>
-                    </li>)}
-                </ul>
-            </div>
             }
         </>
     );
