@@ -1,7 +1,6 @@
 import axios from 'axios';
 import {useState, useEffect} from 'react';
-// import catalogo from "../productos.json";
-import NuevoProducto from '../components/NuevoProducto.js';
+import Producto from '../components/Producto.js';
 import CategoriaBar from '../components/CategoriaBar.js';
 import Alerta from '../components/Alerta.js';
 import CarritoCompra from '../components/CarritoCompra.js';
@@ -19,6 +18,7 @@ const Home = () => {
     useEffect(()=>{
         localStorage.setItem('ClienteActual', JSON.stringify(lista));
         localStorage.setItem('TotalCliente', JSON.stringify(total));
+        localStorage.removeItem('productoID');
     },[lista, total]);
 
     //Obtener los productos desde el backend
@@ -87,7 +87,7 @@ const Home = () => {
             </div>
 
             {/* crea un objeto por cada procuto en el archivo "productos.json" */}
-            <div className="grid md:grid-cols-2 lg:grid-cols-4 grid-cols-1 gap-4 ">
+            <div className="grid md:grid-cols-2 lg:grid-cols-4 grid-cols-1 gap-4 "  >
                 {productos.filter(prod =>{
                     if(busqueda === "" && categ ===""){
                         return prod
@@ -96,8 +96,8 @@ const Home = () => {
                     }
                     return (prod.concepto.toLowerCase().includes(busqueda.toLowerCase()) && prod.categoria?.toLowerCase().includes(categ.toLowerCase()));
                 }).map( objeto =>  
-                <div key={objeto._id} className='container mx-auto hover:bg-white bg-stone-50 rounded-xl p-2 w-full hover:shadow-lg'>
-                    <NuevoProducto 
+                <div key={objeto._id} className='container mx-auto hover:bg-white bg-stone-50 rounded-xl p-2 w-full hover:shadow-lg' onClick={e => {localStorage.setItem('productoID', objeto._id)}}>
+                    <Producto 
                         concepto={objeto.concepto} 
                         precio={objeto.precio}
                         unidad={objeto.unidad}
@@ -109,7 +109,7 @@ const Home = () => {
                         lista={lista}
                         setLista={setLista}
                         // imagen={objeto.imagen || ''}
-                        // id={objeto._id}
+                        id={objeto._id}
                     />
                 </div>
                 )}

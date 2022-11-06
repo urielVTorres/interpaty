@@ -1,4 +1,11 @@
-const NuevoProducto = ({concepto, precio, unidad, imagen, linked, cantidad, setCantidad, total, setTotal, lista, setLista}) => {
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { library } from "@fortawesome/fontawesome-svg-core";
+import {faPenToSquare } from "@fortawesome/free-solid-svg-icons";
+import { Link } from 'react-router-dom'
+
+library.add(faPenToSquare);
+
+const Producto = ({concepto, precio, unidad, imagen, linked, cantidad, setCantidad, total, setTotal, lista, setLista, id}) => {
 
     
     
@@ -12,14 +19,18 @@ const NuevoProducto = ({concepto, precio, unidad, imagen, linked, cantidad, setC
                 }
                 } /> */}
 
-            <div className='container p-5'>
-                
+            <div className='container p-5' >
+                <div className=" block  w-fit ">
+                    <Link to={`/editar/${id}`} > 
+                        <FontAwesomeIcon icon={faPenToSquare} color="gray" className="flex" size="lg"  />
+                    </Link>
+                </div>
                 <h2 className='font-black text-2xl text-center text-gray-800'
                     onClick={()=>{
                         if(linked === "#")
                             return;
                         window.open(linked);
-                    }
+                        }
                     }
                     >{concepto}</h2>
                 <p className='text-xl text-center font-black text-emerald-800'>
@@ -63,4 +74,4 @@ const NuevoProducto = ({concepto, precio, unidad, imagen, linked, cantidad, setC
     )
 }
 
-export default NuevoProducto;
+export default Producto;
