@@ -11,7 +11,7 @@ const Header = () => {
             <Link to="/nuevo-producto" className='px-5 text-center  w-1/3 md:w-auto' >Nuevo Producto</Link>
             <Link to="/reporte" className='px-5 text-center w-1/3 md:w-auto'>Reportes</Link>
             <Link to="/" className='px-5 text-center  w-1/3 md:w-auto'>Nuevo Cliente</Link>
-            <Link to="/login" className='px-5 text-center  w-1/3 md:w-auto'>Cerrar Sesión</Link>
+            {/* <Link to="/login" className='px-5 text-center  w-1/3 md:w-auto'>Cerrar Sesión</Link> */}
         </nav>
     </header>
   )
