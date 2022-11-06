@@ -41,15 +41,15 @@ const AgregarProducto =  () => {
   const {msg} = alerta;
   return (
     <div className='text-gray-800 grid md:grid-cols-2 grid-cols-1 items-center'>
-      <h1 className='text-4xl font-bold text-center mt-5' >Agregar un nuevo <span className="text-lime-600">Producto</span></h1>
-        <div className='container  justify-center m-10 w-full'>
+      <h1 className='text-4xl font-bold text-center ' >Agregar un nuevo <span className="text-cyan-600">Producto</span></h1>
+        <div className='container  justify-center mx-10 w-full'>
             <form className='md:col-span-2 w-4/5 justify-center' onSubmit={handleSubmit}>
                 <label className='font-black text-2xl ' children="Nombre:*"/>
                 <input 
                   type="text" 
                   name="concepto"
                   placeholder='Nombre del Producto'
-                  className='bg-stone-200 rounded-md border-green-300 block border-2 my-2 text-xl p-2 md:w-3/4 w-full focus:bg-white'
+                  className='bg-stone-200 rounded-md border-rose-300 block border-2 my-2 text-xl p-2 md:w-3/4 w-full focus:bg-white'
                   value={producto.concepto || ''}
                   onChange={e =>{
                     setProducto({
@@ -64,7 +64,7 @@ const AgregarProducto =  () => {
                   type="number" 
                   name="precio"
                   placeholder='Precio del Producto'
-                  className='bg-stone-200 rounded-md border-green-300 block border-2 my-2 text-xl p-2 md:w-3/4 w-full focus:bg-white'
+                  className='bg-stone-200 rounded-md border-rose-300 block border-2 my-2 text-xl p-2 md:w-3/4 w-full focus:bg-white'
                   value={producto.precio || ''}
                   onChange={e =>{
                     setProducto({
@@ -76,7 +76,7 @@ const AgregarProducto =  () => {
                 <label className='font-black text-2xl ' children="Categoría:*"/>
                 <select  
                   name="categoria"
-                  className='bg-stone-200 rounded-md border-green-300 block border-2 my-2 text-xl p-2 md:w-3/4 w-full focus:bg-white'
+                  className='bg-stone-200 rounded-md border-rose-300 block border-2 my-2 text-xl p-2 md:w-3/4 w-full focus:bg-white'
                   value={producto.categoria || ''}
                   onChange={e =>{
                     setProducto({
@@ -112,7 +112,7 @@ const AgregarProducto =  () => {
                   type="text" 
                   name="linked"
                   placeholder='www.unapagina.com/hola'
-                  className='bg-stone-200 rounded-md border-green-300 block border-2 my-2 text-xl p-2 md:w-3/4 w-full focus:bg-white'  
+                  className='bg-stone-200 rounded-md border-rose-300 block border-2 my-2 text-xl p-2 md:w-3/4 w-full focus:bg-white'  
                   value={producto.linked}
                   onChange={e =>{
                     setProducto({
@@ -124,7 +124,7 @@ const AgregarProducto =  () => {
                 <input 
                   type="submit" 
                   value="Agregar"
-                  className='bg-emerald-700 p-3 text-white font-bold uppercase rounded-md mt-4 block md:w-3/4 w-full '  
+                  className='bg-rose-700 p-3 text-white font-bold uppercase rounded-md mt-4 block md:w-3/4 w-full '  
                 />
             {msg && <Alerta alerta={alerta} />}
             </form>

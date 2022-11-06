@@ -33,7 +33,7 @@ const Producto = ({concepto, precio, unidad, imagen, linked, cantidad, setCantid
                         }
                     }
                     >{concepto}</h2>
-                <p className='text-xl text-center font-black text-emerald-800'>
+                <p className='text-xl text-center font-black text-cyan-600'>
                     <span className='font-black'>Precio: </span>${precio} {unidad}  
                 </p>
             </div>
@@ -50,7 +50,7 @@ const Producto = ({concepto, precio, unidad, imagen, linked, cantidad, setCantid
                     }
                 />
                 <input 
-                    className=' m-auto bg-emerald-900 rounded-md py-2 px-10 font-bold text-white '
+                    className=' m-auto bg-rose-600 rounded-md py-2 px-10 font-bold text-white '
                     type="submit"
                     onClick={e => {
                         e.preventDefault();

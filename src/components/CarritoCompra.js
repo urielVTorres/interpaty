@@ -2,9 +2,9 @@ import React from 'react'
 
 const CarritoCompra = ({finalizarCompra, total, setTotal, lista, setLista}) => {
   return (
-    <div className='container resize-y  bg-lime-200 text-green-900 font-bold w-80 h-36 p-2 rounded-xl sticky bottom-8 opacity-90 -inset-3/4 overflow-auto hover:shadow-xl'>
+    <div className='container resize-y  bg-rose-200 text-black font-normal w-80 h-40 p-2 rounded-md sticky bottom-8 opacity-90 -inset-3/4 overflow-auto hover:shadow-xl'>
                 <button
-                    className=" bg-green-700 text-white p-2 w-full rounded-md hover:bg-green-900"
+                    className=" bg-gradient-to-br from-cyan-700 to-cyan-800 text-white font-bold p-2 w-full rounded-md "
                     children={`Finalizar Compra: $${total}`}
                     onClick={finalizarCompra}
                 />

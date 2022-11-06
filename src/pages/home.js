@@ -65,8 +65,8 @@ const Home = () => {
 
     return (
         <>
-            <div className=' grid md:grid-cols-3 gap-5  bg-emerald-800 p-5 rounded-2xl my-5 items-center hover:shadow-xl '>
-                <h1 className=' md:col-span-2  font-black text-white text-3xl text-center '>
+            <div className=' grid md:grid-cols-3 gap-5 bg-gradient-to-br from-rose-600 to-rose-700 p-5 rounded-2xl my-5 items-center hover:shadow-xl '>
+                <h1 className=' md:col-span-2  font-light text-white text-3xl text-center '>
                     Total: ${total}
                 </h1>
                 <input 
@@ -96,7 +96,7 @@ const Home = () => {
                     }
                     return (prod.concepto.toLowerCase().includes(busqueda.toLowerCase()) && prod.categoria?.toLowerCase().includes(categ.toLowerCase()));
                 }).map( objeto =>  
-                <div key={objeto._id} className='container mx-auto hover:bg-white bg-stone-50 rounded-xl p-2 w-full hover:shadow-lg' onClick={e => {localStorage.setItem('productoID', objeto._id)}}>
+                <div key={objeto._id} className='container mx-auto bg-gradient-to-br to-rose-200 from-cyan-200 rounded-xl p-2 w-full hover:shadow-lg' onClick={e => {localStorage.setItem('productoID', objeto._id)}}>
                     <Producto 
                         concepto={objeto.concepto} 
                         precio={objeto.precio}

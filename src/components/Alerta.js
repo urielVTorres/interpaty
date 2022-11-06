@@ -8,7 +8,7 @@ const Alerta = ({alerta}) => {
         </div>
     )
     return (
-        <div className='container bg-green-700 text-white text-lg font-black text-center w-full md:w-3/4 p-3 mt-3 rounded-md' >
+        <div className='container bg-rose-700 text-white text-lg font-black text-center w-full md:w-3/4 p-3 mt-3 rounded-md' >
             <p>{alerta.msg}</p>
         </div>
     )
