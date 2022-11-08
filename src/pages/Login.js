@@ -1,5 +1,7 @@
 import {useState} from 'react'
 import { Link } from 'react-router-dom'
+import axios from 'axios';
+import Alerta from '../components/Alerta.js'
 
 const Login = () => {
     
@@ -8,10 +10,34 @@ const Login = () => {
         password: ''
     });
 
+    const [alerta, setAlerta] = useState({});
+
     const handleSubmit = e => {
         e.preventDefault();
-        console.log(usuario);
+        const login = async () =>{
+            try {
+                const {data} = await axios.post(`${process.env.REACT_APP_URL_BACKEND}/login`, {
+                    headers: {
+                      'Content-Type': 'application/json;charset=UTF-8',
+                      'Access-Control-Allow-Origin': '*'
+                    },
+                    data: usuario
+                });
+
+                if(!data?.nombres){
+                    setAlerta(data);
+                    return;
+                }
+                localStorage.setItem('key', data._id);
+                //Agregar función de redireccionamiento
+            } catch (error) {
+                console.log(error);
+            }
+        }
+        login();
     }
+
+    const {msg} = alerta;
 
     return (
     <div className='flex justify-center content-center '>
@@ -53,6 +79,7 @@ const Login = () => {
                         
                         <button type="submit" className='bg-rose-500 p-2 mt-4 rounded-3xl block text-white w-full' onClick={e=>handleSubmit(e)}>Iniciar Sesión</button>
                     </form>
+                    {msg && <Alerta alerta={alerta}/>}
                 </div>
             </div>
 
