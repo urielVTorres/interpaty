@@ -52,7 +52,7 @@ const Home = () => {
         //Resetea el contenido de la página y muestra un mensaje con el status de la compra que desaparece después de 5 segundos
         setAlerta(data);
         if(data.error) return;
-        localStorage.clear();
+        localStorage.removeItem('productoID');
         setTotal(0);
         setLista([]);
 
