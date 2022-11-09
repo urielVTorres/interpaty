@@ -45,9 +45,9 @@ const Home = () => {
 
     //Envía las compras realizadas a la base de datos y se agregarán a la página de reporte
     const finalizarCompra = async () => {
-       
+       const id = localStorage.getItem('key');
         const {data} = await axios.post(`${process.env.REACT_APP_URL_BACKEND}/compra`, {
-            lista, total
+            lista, total, vendedor: id
         });
         //Resetea el contenido de la página y muestra un mensaje con el status de la compra que desaparece después de 5 segundos
         setAlerta(data);

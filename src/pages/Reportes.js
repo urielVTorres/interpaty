@@ -12,13 +12,17 @@ const Reportes = () => {
     const [detalle, setDetalle] = useState([]);
 
     useEffect(()=>{
+        const id = localStorage.getItem('key');
         const buscarReportes = async () =>{
             try {
-                const {data} = await axios(`${process.env.REACT_APP_URL_BACKEND}/reporte`, {
+                const {data} = await axios.post(`${process.env.REACT_APP_URL_BACKEND}/reporte`, {
                     headers: {
                       'Content-Type': 'application/json;charset=UTF-8',
                       'Access-Control-Allow-Origin': '*'
                     },
+                    data:{
+                        id: id
+                    }
                 });
                 setReportes(data);
             } catch (error) {
@@ -26,9 +30,8 @@ const Reportes = () => {
             }
         }
         buscarReportes();
-        
-
     }, []);
+    
     useEffect(()=>{
         let money = 0;
         setDinero(0);

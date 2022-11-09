@@ -7,6 +7,7 @@ import EditarProducto from './pages/EditarProducto';
 import RutaProtegida from './layout/RutaProtegida';
 import Login from './pages/Login';
 import AuthLayout from './layout/AuthLayout';
+import Signup from './pages/Signup';
 
 
 function App() {
@@ -22,6 +23,7 @@ function App() {
                     </Route>
                     <Route path='/login' element={<AuthLayout />} >
                         <Route index element={<Login />} />
+                        <Route path="/login/signup" element={<Signup />} />
                     </Route>
 
                 </Routes>
