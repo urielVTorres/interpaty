@@ -53,7 +53,7 @@ const Reportes = () : JSX.Element => {
     }, []);
 
     useEffect(() => {
-        // let money = 0;
+        let money = 0;
         let dates : string[] = [];
         setDinero(0);
         for(let i = Date.parse(fecha1)+86400000; i <= Date.parse(fecha2)+86400000; i+=86400000){
@@ -64,15 +64,15 @@ const Reportes = () : JSX.Element => {
         }
         setFechas(dates);
 
-        // const reporte = reportes.filter(reporte => {
-        //     const fe = reporte.fecha.toString().slice(0,10);
-        //     return fechas.indexOf(fe) != -1 ;
-        // });
-        // reporte.forEach(repo => {
-        //     money = money + repo.total
-        // });
+        reportes.filter(reporte => {
+            const fe = reporte.fecha.toString().slice(0,10);
+            if(fechas.indexOf(fe) != -1){
+                money = money + reporte.total;
+            }
+            return fechas.indexOf(fe) != -1 ;
+        });
         
-        // setDinero(money);
+        setDinero(money);
     }, [fecha1, fecha2, reportes])
 
 
@@ -105,8 +105,6 @@ const Reportes = () : JSX.Element => {
                 }
             )
                 .map( (venta: IReporte, index: number) => {
-        
-                    setDinero(dinero + venta.total);
                     
                     return (<div key={venta._id} className="m-1  bg-white p-1 md:p-2 font-arial md:text-2xl shadow-md text-base ">
                         <p className="flex justify-between items-center">
