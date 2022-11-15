@@ -60,7 +60,7 @@ const Signup = () => {
                 <div className='font-light'>
                     <h2 className="text-5xl font-normal mb-9 mt-3 font-mono">[Interpaty]</h2>
                     <p className='text-lg m-4'>¿Ya estás registrado?</p>
-                    <Link to='/login'>
+                    <Link to='/'>
                         <button className='m-2 border-white p-3 rounded-3xl text-lg border-2'>
                             Inicia Sesión
                         </button>
@@ -123,7 +123,6 @@ const Signup = () => {
                     {msg && <Alerta alerta={alerta}/>}
                 </div>
             </div>
-
         </div>
     </div>
   )

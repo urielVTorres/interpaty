@@ -1,12 +1,12 @@
 import React from 'react'
-import { Outlet } from 'react-router-dom'
 import Footer from '../components/Footer'
+import Login from '../pages/Login.js'
 
 const AuthLayout = () => {
   return (
     <div className='w-full h-full mt-10'>
         <div className=''>
-            <Outlet />
+            <Login />
         </div>
         <Footer />
     </div>

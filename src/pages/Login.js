@@ -1,5 +1,5 @@
 import {useEffect, useState} from 'react'
-import { Link, useNavigate } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import axios from 'axios';
 import Alerta from '../components/Alerta.js'
 
@@ -11,7 +11,7 @@ const Login = () => {
     });
 
     const [alerta, setAlerta] = useState({});
-    const navigate = useNavigate();
+
     useEffect(()=>{
         localStorage.removeItem('key');
         localStorage.removeItem('name');
@@ -35,7 +35,7 @@ const Login = () => {
                 }
                 localStorage.setItem('key', data._id);
                 localStorage.setItem('name',data.nombres);
-                navigate('/');
+                window.location.reload();
             } catch (error) {
                 console.log(error);
             }
