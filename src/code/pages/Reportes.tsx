@@ -53,7 +53,6 @@ const Reportes = () : JSX.Element => {
     }, []);
 
     useEffect(() => {
-        let money = 0;
         let dates : string[] = [];
         setDinero(0);
         for(let i = Date.parse(fecha1)+86400000; i <= Date.parse(fecha2)+86400000; i+=86400000){
@@ -63,16 +62,6 @@ const Reportes = () : JSX.Element => {
             dates.push(hoy);
         }
         setFechas(dates);
-
-        const reporte = reportes.filter(reporte => {
-            const fe = reporte.fecha.toString().slice(0,10);
-            return fechas.indexOf(fe) != -1 ;
-        });
-        reporte.forEach(repo => {
-            money = money + repo.total
-        });
-        
-        setDinero(money);
     }, [fecha1, fecha2, reportes])
 
 
@@ -105,7 +94,10 @@ const Reportes = () : JSX.Element => {
                 }
             )
                 .map( (venta: IReporte, index: number) => 
-                    <div key={venta._id} className="m-1  bg-white p-1 md:p-2 font-arial md:text-2xl shadow-md text-base ">
+                    {
+                        setDinero(dinero + venta.total);
+
+                        return (<div key={venta._id} className="m-1  bg-white p-1 md:p-2 font-arial md:text-2xl shadow-md text-base ">
                         <p className="flex justify-between items-center">
                             <span className='px-5 font-black'>{index + 1}</span >
                             <span className='px-5 font-bold text-teal-700'>{venta.fecha.toLocaleString().slice(11, -5)}, {venta.fecha.toLocaleString().slice(0, 10)}</span >
@@ -128,7 +120,7 @@ const Reportes = () : JSX.Element => {
                                 </p>
                             ))}
                         </div> : <></>}
-                    </div>
+                    </div>)}
                 )
             }
         </div>
