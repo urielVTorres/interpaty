@@ -18,7 +18,7 @@ const Reportes = () => {
         const id  = localStorage.getItem('key');
         const buscarReportes = async () => {
             try {
-                const { data } = await axios.post(`https://interpaty-backend.herokuapp.com/reporte`, {
+                const { data } = await axios.post(`https://interpaty-app-backend.onrender.com/reporte`, {
                     headers: {
                         'Content-Type': 'application/json;charset=UTF-8',
                         'Access-Control-Allow-Origin': '*'

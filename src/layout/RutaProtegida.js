@@ -24,7 +24,7 @@ const RutaProtegida = () => {
                 <div className='md:col-span-2 md:flex justify-end items-center text-center'>
                     <button
                         className='text-xl md:hidden bg-rose-600 w-8 h-8 rounded-sm text-white font-black border-2 border-white '
-                        children={mostrar? '─':'🞡'}
+                        children={mostrar? '─':'☰'}
                         onClick={()=>{setMostrar(!mostrar)}}
                     />
                     
