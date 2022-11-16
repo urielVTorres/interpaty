@@ -15,7 +15,7 @@ const AgregarProducto =  () => {
     e.preventDefault();
     //Modificar el acceso de las políticas de CORS
     try {
-      const {data} = await axios.post(`${process.env.REACT_APP_URL_BACKEND}/agregar`, {
+      const {data} = await axios.post(`https://interpaty-backend.herokuapp.com/agregar`, {
         headers: {
           'Content-Type': 'application/json;charset=UTF-8',
           'Access-Control-Allow-Origin': '*'

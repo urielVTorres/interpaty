@@ -21,7 +21,7 @@ const Login = () => {
         e.preventDefault();
         const login = async () =>{
             try {
-                const {data} = await axios.post(`${process.env.REACT_APP_URL_BACKEND}/login`, {
+                const {data} = await axios.post(`https://interpaty-backend.herokuapp.com/login`, {
                     headers: {
                       'Content-Type': 'application/json;charset=UTF-8',
                       'Access-Control-Allow-Origin': '*'

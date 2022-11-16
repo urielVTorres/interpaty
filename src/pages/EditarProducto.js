@@ -22,7 +22,7 @@ const EditarProducto =  () => {
     const losProductos = async ()=>{
         setID(localStorage.getItem("productoID"));
         try {
-            const {data} = await axios(`${process.env.REACT_APP_URL_BACKEND}/producto/${id}`,{
+            const {data} = await axios(`https://interpaty-backend.herokuapp.com/producto/${id}`,{
                 headers: {
                   'Content-Type': 'application/json;charset=UTF-8',
                   'Access-Control-Allow-Origin': '*'
@@ -44,7 +44,7 @@ const EditarProducto =  () => {
     //Modificar el acceso de las políticas de CORS
     console.log(producto);
     try {
-      const {data} = await axios.put(`${process.env.REACT_APP_URL_BACKEND}/producto/${id}`, {
+      const {data} = await axios.put(`https://interpaty-backend.herokuapp.com/producto/${id}`, {
         headers: {
           'Content-Type': 'application/json;charset=UTF-8',
           'Access-Control-Allow-Origin': '*'
@@ -65,7 +65,7 @@ const EditarProducto =  () => {
     e.preventDefault();
     //Eliminar producto
     try {
-      const {data} = await axios.delete(`${process.env.REACT_APP_URL_BACKEND}/producto/${id}`, {
+      const {data} = await axios.delete(`https://interpaty-backend.herokuapp.com/producto/${id}`, {
         headers: {
           'Content-Type': 'application/json;charset=UTF-8',
           'Access-Control-Allow-Origin': '*'
@@ -90,6 +90,7 @@ const EditarProducto =  () => {
   useEffect(()=>{
     if(pagina !== 'Editando')
         navigate('/');
+    // eslint-disable-next-line
   },[pagina]);
 
   const {msg} = alerta;

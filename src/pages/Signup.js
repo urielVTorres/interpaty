@@ -30,7 +30,7 @@ const Signup = () => {
 
         const signup = async () =>{
             try {
-                const {data} = await axios.post(`${process.env.REACT_APP_URL_BACKEND}/signup`, {
+                const {data} = await axios.post(`https://interpaty-backend.herokuapp.com/signup`, {
                     headers: {
                       'Content-Type': 'application/json;charset=UTF-8',
                       'Access-Control-Allow-Origin': '*'
