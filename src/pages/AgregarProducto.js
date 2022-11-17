@@ -15,7 +15,7 @@ const AgregarProducto =  () => {
     e.preventDefault();
     //Modificar el acceso de las políticas de CORS
     try {
-      const {data} = await axios.post(`https://interpaty-app-backend.onrender.com/agregar`, {
+      const {data} = await axios.post(`https://interpaty-backend-production.up.railway.app/agregar`, {
         headers: {
           'Content-Type': 'application/json;charset=UTF-8',
           'Access-Control-Allow-Origin': '*'

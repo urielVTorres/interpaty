@@ -30,7 +30,7 @@ const Signup = () => {
 
         const signup = async () =>{
             try {
-                const {data} = await axios.post(`https://interpaty-app-backend.onrender.com/signup`, {
+                const {data} = await axios.post(`https://interpaty-backend-production.up.railway.app/signup`, {
                     headers: {
                       'Content-Type': 'application/json;charset=UTF-8',
                       'Access-Control-Allow-Origin': '*'
